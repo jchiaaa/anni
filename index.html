@@ -1,253 +1,468 @@
-```html
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我们的结婚纪念日晚餐</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Our Anniversary ♡</title>
+
+  <meta
+    name="description"
+    content="A little anniversary game for two."
+  />
 
   <style>
+
     * {
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #f7f2ed;
+      --card: #fffdfb;
+      --text: #403731;
+      --muted: #918178;
+      --border: #e7dbd3;
+      --accent: #806456;
+      --accent-dark: #5d493f;
+      --soft: #eee3dc;
+      --success: #687d67;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
-        "Helvetica Neue", Arial, sans-serif;
-      background: #f8f4ef;
-      color: #3d3530;
       min-height: 100vh;
+      background:
+        radial-gradient(
+          circle at top,
+          #fffaf6 0%,
+          var(--bg) 55%,
+          #f3ece5 100%
+        );
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "PingFang SC",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+    }
+
+    button,
+    textarea,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     .app {
+      width: 100%;
       max-width: 680px;
       margin: 0 auto;
-      padding: 24px 18px 50px;
+      padding:
+        20px
+        18px
+        calc(40px + env(safe-area-inset-bottom));
     }
-
-    /* ---------- Header ---------- */
-
-    .hero {
-      text-align: center;
-      padding: 36px 10px 28px;
-    }
-
-    .heart {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-
-    .hero h1 {
-      font-family: Georgia, serif;
-      font-size: 32px;
-      font-weight: 500;
-      margin: 0 0 10px;
-      color: #4b3b34;
-    }
-
-    .hero p {
-      margin: 0;
-      color: #8a7970;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* ---------- Cards ---------- */
-
-    .card {
-      background: rgba(255,255,255,0.78);
-      border: 1px solid #eadfd6;
-      border-radius: 22px;
-      padding: 24px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 30px rgba(80, 60, 45, 0.05);
-    }
-
-    .card h2 {
-      margin: 0 0 8px;
-      font-family: Georgia, serif;
-      font-size: 22px;
-      font-weight: 500;
-    }
-
-    .card-description {
-      color: #8a7970;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    /* ---------- Menu ---------- */
-
-    .mode {
-      width: 100%;
-      border: 1px solid #e5d8ce;
-      background: #fffaf6;
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: all .2s ease;
-      color: #3d3530;
-    }
-
-    .mode:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(80,60,45,.08);
-    }
-
-    .mode-title {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .mode-text {
-      font-size: 13px;
-      color: #8a7970;
-      line-height: 1.5;
-    }
-
-    /* ---------- Game ---------- */
 
     .hidden {
       display: none !important;
     }
 
-    .topbar {
+    /* --------------------------------
+       HERO
+    -------------------------------- */
+
+    .hero {
+      text-align: center;
+      padding: 42px 10px 30px;
+    }
+
+    .hero-heart {
+      font-size: 44px;
+      line-height: 1;
+      margin-bottom: 18px;
+      color: #8f7466;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 400;
+      margin: 0 0 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* --------------------------------
+       CARD
+    -------------------------------- */
+
+    .card {
+      background: rgba(255,255,255,.82);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow:
+        0 15px 45px rgba(76,58,47,.055);
+      backdrop-filter: blur(10px);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-family: Georgia, serif;
+      font-size: 23px;
+      font-weight: 400;
+    }
+
+    .description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    /* --------------------------------
+       INPUT
+    -------------------------------- */
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #ae9384;
+      box-shadow: 0 0 0 3px rgba(174,147,132,.1);
+    }
+
+    textarea {
+      min-height: 105px;
+      resize: vertical;
+      line-height: 1.55;
+    }
+
+    label {
+      display: block;
+      color: #77665d;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    /* --------------------------------
+       BUTTONS
+    -------------------------------- */
+
+    .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-weight: 600;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn-primary {
+      background: var(--accent-dark);
+      color: white;
+      width: 100%;
+    }
+
+    .btn-soft {
+      background: var(--soft);
+      color: #604e45;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #67564d;
+    }
+
+    .btn:disabled {
+      opacity: .45;
+      cursor: default;
+    }
+
+    /* --------------------------------
+       HOME
+    -------------------------------- */
+
+    .mode {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fffaf7;
+      color: var(--text);
+      text-align: left;
+      border-radius: 17px;
+      padding: 18px;
+      margin-bottom: 12px;
+      transition: all .18s ease;
+    }
+
+    .mode:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(70,50,40,.07);
+    }
+
+    .mode-title {
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 5px;
+    }
+
+    .mode-description {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 25px 0;
+    }
+
+    /* --------------------------------
+       ROOM
+    -------------------------------- */
+
+    .room-code {
+      text-align: center;
+      background: #f5ece6;
+      border-radius: 18px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .room-code small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .room-code strong {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      letter-spacing: 5px;
+      color: #59473e;
+    }
+
+    .player-status {
+      display: flex;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .player {
+      flex: 1;
+      padding: 13px;
+      border-radius: 14px;
+      background: #faf5f1;
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .player-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #c6bdb7;
+      margin-right: 6px;
+    }
+
+    .player-dot.online {
+      background: #789176;
+    }
+
+    /* --------------------------------
+       GAME HEADER
+    -------------------------------- */
+
+    .game-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 12px;
+    }
+
+    .game-top-left {
       font-size: 13px;
-      color: #907f76;
+      color: var(--muted);
+    }
+
+    .exit {
+      border: 0;
+      background: transparent;
+      color: #817168;
+      padding: 5px;
     }
 
     .progress {
       width: 100%;
       height: 5px;
-      background: #eadfd7;
       border-radius: 99px;
+      background: #e9dfd8;
       overflow: hidden;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
     .progress-fill {
       height: 100%;
-      width: 0%;
-      background: #b99886;
+      background: #9b806f;
+      width: 0;
       transition: width .3s ease;
     }
 
-    .question-number {
-      font-size: 13px;
-      color: #a28e82;
-      margin-bottom: 8px;
+    .round-label {
+      color: #a18c81;
+      font-size: 12px;
+      margin-bottom: 10px;
     }
 
     .question {
       font-family: Georgia, serif;
-      font-size: 25px;
+      font-size: 26px;
       line-height: 1.45;
+      color: #40342e;
       margin-bottom: 24px;
-      color: #443831;
     }
 
-    .answer-section {
-      margin-bottom: 18px;
+    /* --------------------------------
+       WAITING
+    -------------------------------- */
+
+    .waiting {
+      text-align: center;
+      padding: 20px 0;
     }
 
-    .answer-label {
-      display: block;
+    .waiting-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .waiting h3 {
+      font-family: Georgia, serif;
+      font-size: 21px;
+      font-weight: 400;
+      margin: 0 0 8px;
+    }
+
+    .waiting p {
+      color: var(--muted);
       font-size: 13px;
-      color: #806f66;
-      margin-bottom: 8px;
-      font-weight: 600;
+      line-height: 1.6;
     }
 
-    textarea {
-      width: 100%;
-      min-height: 100px;
-      resize: vertical;
-      border: 1px solid #dfd1c7;
-      background: #fffdfb;
+    .pulse {
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% {
+        opacity: .45;
+      }
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* --------------------------------
+       ANSWERS
+    -------------------------------- */
+
+    .answer-status {
+      background: #f7f0eb;
       border-radius: 14px;
       padding: 14px;
-      font-size: 15px;
-      font-family: inherit;
-      color: #3d3530;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: #b99886;
-    }
-
-    .button {
-      border: none;
-      border-radius: 14px;
-      padding: 13px 18px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .primary {
-      background: #59483f;
-      color: white;
-      width: 100%;
-    }
-
-    .secondary {
-      background: #eee4dd;
-      color: #5a4940;
-    }
-
-    .button-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .button-row .button {
-      flex: 1;
-    }
-
-    /* ---------- Guess Mode ---------- */
-
-    .guess-box {
-      background: #f8f1eb;
-      border-radius: 15px;
-      padding: 15px;
-      margin-bottom: 14px;
-    }
-
-    .guess-title {
+      margin-top: 16px;
+      color: #77665c;
       font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #79665c;
+      line-height: 1.5;
     }
 
-    .reveal {
-      margin-top: 14px;
-      padding: 14px;
-      background: white;
-      border-radius: 12px;
-      border: 1px dashed #d7c4b8;
+    .answer-status strong {
+      color: #5d4a41;
     }
 
-    .reveal strong {
-      display: block;
+    .answer-card {
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 17px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+
+    .answer-card.mine {
+      background: #fcf8f5;
+    }
+
+    .answer-card .answer-name {
       font-size: 12px;
-      color: #9a8478;
-      margin-bottom: 5px;
+      color: #9b877c;
+      margin-bottom: 8px;
+      font-weight: 650;
     }
 
-    /* ---------- Choice ---------- */
+    .answer-card .answer-text {
+      font-size: 15px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .match {
+      text-align: center;
+      padding: 17px;
+      border-radius: 16px;
+      background: #edf2eb;
+      color: #587054;
+      font-weight: 650;
+      margin: 18px 0;
+    }
+
+    /* --------------------------------
+       CHOICES
+    -------------------------------- */
 
     .choices {
       display: grid;
@@ -256,261 +471,550 @@
     }
 
     .choice {
-      border: 1px solid #ded0c6;
-      background: #fffdfb;
+      border: 1px solid var(--border);
+      background: #fff;
       border-radius: 14px;
-      padding: 15px 10px;
-      cursor: pointer;
-      font-family: inherit;
-      color: #51433c;
+      padding: 16px 10px;
+      color: #55463f;
       font-size: 14px;
     }
 
     .choice.selected {
-      border-color: #8f7161;
-      background: #eee3db;
-      font-weight: 600;
+      background: #ebe0d8;
+      border-color: #947666;
+      font-weight: 650;
     }
 
-    /* ---------- Final ---------- */
+    /* --------------------------------
+       FINAL
+    -------------------------------- */
 
     .final {
       text-align: center;
+      padding-top: 35px;
     }
 
-    .final .big-heart {
-      font-size: 54px;
-      margin: 12px 0 15px;
+    .final-heart {
+      font-size: 55px;
+      margin-bottom: 16px;
     }
 
     .final h2 {
-      font-size: 27px;
+      font-family: Georgia, serif;
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1.35;
     }
 
     .final p {
-      color: #806f66;
-      line-height: 1.7;
+      color: var(--muted);
       font-size: 14px;
+      line-height: 1.8;
     }
 
-    .memory-note {
-      margin-top: 20px;
-      text-align: left;
+    /* --------------------------------
+       TOAST
+    -------------------------------- */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translateX(-50%);
+      background: #443832;
+      color: white;
+      border-radius: 99px;
+      padding: 11px 17px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 100;
+      white-space: nowrap;
     }
 
-    /* ---------- Footer ---------- */
+    .toast.show {
+      opacity: 1;
+    }
 
     footer {
       text-align: center;
-      color: #aa988e;
-      font-size: 12px;
-      padding-top: 24px;
+      color: #ad9b91;
+      font-size: 11px;
+      padding-top: 15px;
     }
 
     @media (max-width: 480px) {
-      .hero {
-        padding-top: 25px;
+
+      .app {
+        padding-left: 15px;
+        padding-right: 15px;
       }
 
       .hero h1 {
-        font-size: 28px;
+        font-size: 29px;
       }
 
       .question {
-        font-size: 22px;
+        font-size: 23px;
       }
 
       .card {
         padding: 20px;
       }
+
+      .player-status {
+        flex-direction: column;
+      }
+
     }
+
   </style>
 </head>
+
 
 <body>
 
 <div class="app">
 
-  <!-- HOME -->
+  <!-- ============================
+       HOME
+  ============================= -->
+
   <section id="home">
 
     <div class="hero">
-      <div class="heart">♡</div>
-      <h1>我们的结婚纪念日晚餐</h1>
+      <div class="hero-heart">♡</div>
+
+      <h1>Our Anniversary</h1>
+
       <p>
-        今晚不聊工作，不刷手机。<br>
-        花一点时间，重新认识彼此。
+        A little game for two.<br>
+        Tonight, let's forget everything else for a while.
       </p>
     </div>
 
+
     <div class="card">
-      <h2>今晚想怎么玩？</h2>
-      <div class="card-description">
-        选一个游戏开始。每一题都需要双方回答。
+
+      <h2>Who's starting?</h2>
+
+      <div class="description">
+        One of you creates a room. The other joins using the room code.
       </div>
 
-      <button class="mode" onclick="startGame('guess')">
-        <div class="mode-title">① 你猜我答</div>
-        <div class="mode-text">
-          先猜对方会怎么回答，再公布真实答案。看看你们到底有多了解彼此。
-        </div>
+      <div class="field">
+        <label>Your name</label>
+        <input
+          id="playerName"
+          maxlength="20"
+          placeholder="e.g. Jasmine"
+        />
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="showGameSelection()"
+      >
+        Continue
       </button>
 
-      <button class="mode" onclick="startGame('couple')">
-        <div class="mode-title">② 夫妻默契测试</div>
-        <div class="mode-text">
-          不讨论，直接选答案。适合先来一点轻松搞笑的。
+    </div>
+
+
+    <div
+      id="gameSelection"
+      class="card hidden"
+    >
+
+      <h2>Choose tonight's game</h2>
+
+      <div class="description">
+        You'll be able to play the same game together in real time.
+      </div>
+
+
+      <button
+        class="mode"
+        onclick="createRoom('guess')"
+      >
+
+        <div class="mode-title">
+          💕 You Guess Me
         </div>
+
+        <div class="mode-description">
+          Guess what your partner will say, then reveal the real answer.
+        </div>
+
       </button>
 
-      <button class="mode" onclick="startGame('year')">
-        <div class="mode-title">③ 这一年的我们</div>
-        <div class="mode-text">
-          回顾这一年，特别适合今年——从两个人变成三个人的一年。
+
+      <button
+        class="mode"
+        onclick="createRoom('couple')"
+      >
+
+        <div class="mode-title">
+          😂 Couple Compatibility
         </div>
+
+        <div class="mode-description">
+          Who is more likely to do it? Answer independently and compare.
+        </div>
+
       </button>
 
-      <button class="mode" onclick="startGame('future')">
-        <div class="mode-title">④ 如果人生重来一次</div>
-        <div class="mode-text">
-          比较深的一组问题。建议留到甜点和最后一杯酒。
+
+      <button
+        class="mode"
+        onclick="createRoom('year')"
+      >
+
+        <div class="mode-title">
+          🥹 This Year, Us
         </div>
+
+        <div class="mode-description">
+          Look back on this year and everything that changed.
+        </div>
+
       </button>
+
+
+      <button
+        class="mode"
+        onclick="createRoom('future')"
+      >
+
+        <div class="mode-title">
+          🔮 If We Could Start Again
+        </div>
+
+        <div class="mode-description">
+          The deeper questions. Save this one for dessert.
+        </div>
+
+      </button>
+
+
+      <div class="divider"></div>
+
+
+      <button
+        class="btn btn-outline"
+        style="width:100%"
+        onclick="showJoinRoom()"
+      >
+        Join an existing room
+      </button>
+
+    </div>
+
+
+    <div
+      id="joinCard"
+      class="card hidden"
+    >
+
+      <h2>Join your partner</h2>
+
+      <div class="description">
+        Enter the six-character room code shown on their phone.
+      </div>
+
+      <div class="field">
+
+        <label>Room code</label>
+
+        <input
+          id="roomCodeInput"
+          maxlength="6"
+          style="text-transform:uppercase;text-align:center;letter-spacing:4px;font-size:22px"
+          placeholder="ABC123"
+        />
+
+      </div>
+
+      <button
+        class="btn btn-primary"
+        onclick="joinRoom()"
+      >
+        Join room
+      </button>
+
     </div>
 
   </section>
 
 
-  <!-- GAME -->
-  <section id="game" class="hidden">
+  <!-- ============================
+       LOBBY
+  ============================= -->
 
-    <div class="topbar">
-      <button class="button secondary" onclick="goHome()">← 返回</button>
-      <span id="counter"></span>
+  <section
+    id="lobby"
+    class="hidden"
+  >
+
+    <div class="card">
+
+      <div class="hero-heart">♡</div>
+
+      <h2 style="text-align:center">
+        Waiting for your person
+      </h2>
+
+      <div class="description" style="text-align:center">
+        Share this code with your partner.
+      </div>
+
+
+      <div class="room-code">
+
+        <small>Room code</small>
+
+        <strong id="roomCodeDisplay">
+          ------
+        </strong>
+
+      </div>
+
+
+      <div class="player-status">
+
+        <div class="player">
+          <span
+            id="hostDot"
+            class="player-dot online"
+          ></span>
+
+          <span id="hostName">
+            Waiting...
+          </span>
+        </div>
+
+
+        <div class="player">
+
+          <span
+            id="guestDot"
+            class="player-dot"
+          ></span>
+
+          <span id="guestName">
+            Waiting for partner...
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="lobbyMessage"
+        class="waiting"
+      >
+
+        <div class="waiting-icon pulse">
+          💌
+        </div>
+
+        <h3>
+          Waiting for your partner
+        </h3>
+
+        <p>
+          Send them the room code.<br>
+          Once they join, the game will begin.
+        </p>
+
+      </div>
+
+
+      <button
+        id="startButton"
+        class="btn btn-primary hidden"
+        onclick="startGame()"
+      >
+        Start the game ❤️
+      </button>
+
     </div>
+
+  </section>
+
+
+  <!-- ============================
+       GAME
+  ============================= -->
+
+  <section
+    id="game"
+    class="hidden"
+  >
+
+    <div class="game-top">
+
+      <div class="game-top-left">
+
+        <span id="gameModeLabel">
+          Our Anniversary
+        </span>
+
+        ·
+
+        <span id="questionCounter">
+          1 / 10
+        </span>
+
+      </div>
+
+
+      <button
+        class="exit"
+        onclick="confirmLeave()"
+      >
+        Leave
+      </button>
+
+    </div>
+
 
     <div class="progress">
-      <div id="progressFill" class="progress-fill"></div>
+
+      <div
+        id="progressFill"
+        class="progress-fill"
+      ></div>
+
     </div>
+
 
     <div class="card">
 
-      <div id="questionNumber" class="question-number"></div>
-      <div id="question" class="question"></div>
+      <div
+        id="roundLabel"
+        class="round-label"
+      ></div>
 
-      <!-- NORMAL ANSWERS -->
-      <div id="normalAnswers">
-
-        <div class="answer-section">
-          <label class="answer-label">♡ 你的回答</label>
-          <textarea id="answer1" placeholder="写下你的答案……"></textarea>
-        </div>
-
-        <div class="answer-section">
-          <label class="answer-label">♡ 另一半的回答</label>
-          <textarea id="answer2" placeholder="写下另一半的答案……"></textarea>
-        </div>
-
-      </div>
+      <div
+        id="questionText"
+        class="question"
+      ></div>
 
 
-      <!-- GUESS MODE -->
-      <div id="guessAnswers" class="hidden">
+      <!-- ANSWER AREA -->
 
-        <div class="guess-box">
-          <div class="guess-title">先猜：你觉得另一半会怎么回答？</div>
-          <textarea id="guess" placeholder="猜猜看……"></textarea>
-        </div>
+      <div id="answerArea"></div>
 
-        <div class="guess-box">
-          <div class="guess-title">然后：另一半的真实答案</div>
-          <textarea id="realAnswer" placeholder="现在把真实答案写下来……"></textarea>
-        </div>
 
-        <button id="revealBtn" class="button secondary" onclick="revealGuess()">
-          👀 揭晓
+      <!-- LIVE STATUS -->
+
+      <div
+        id="liveStatus"
+        class="answer-status"
+      ></div>
+
+
+      <!-- ACTION -->
+
+      <div style="margin-top:18px">
+
+        <button
+          id="submitButton"
+          class="btn btn-primary"
+          onclick="submitAnswer()"
+        >
+          Lock in my answer
         </button>
 
-        <div id="revealBox" class="reveal hidden">
-          <strong>你猜得准吗？</strong>
-          <span id="revealText"></span>
-        </div>
-
       </div>
 
 
-      <!-- COUPLE MODE -->
-      <div id="coupleAnswers" class="hidden">
+      <!-- REVEAL AREA -->
 
-        <div class="answer-section">
-          <label class="answer-label">你认为……</label>
-
-          <div class="choices">
-            <button class="choice" onclick="selectChoice(this)">我</button>
-            <button class="choice" onclick="selectChoice(this)">另一半</button>
-          </div>
-        </div>
-
-        <div class="answer-section">
-          <label class="answer-label">另一半认为……</label>
-
-          <div class="choices">
-            <button class="choice" onclick="selectChoice(this)">我</button>
-            <button class="choice" onclick="selectChoice(this)">另一半</button>
-          </div>
-        </div>
-
-      </div>
+      <div
+        id="revealArea"
+        class="hidden"
+        style="margin-top:22px"
+      ></div>
 
 
-      <div class="button-row">
-        <button class="button secondary" onclick="previousQuestion()">
-          上一题
-        </button>
-
-        <button class="button primary" onclick="nextQuestion()">
-          下一题 →
-        </button>
-      </div>
+      <button
+        id="nextButton"
+        class="btn btn-primary hidden"
+        style="margin-top:18px"
+        onclick="readyForNext()"
+      >
+        I'm ready for the next one →
+      </button>
 
     </div>
 
   </section>
 
 
-  <!-- FINAL -->
-  <section id="final" class="hidden">
+  <!-- ============================
+       FINAL
+  ============================= -->
+
+  <section
+    id="final"
+    class="hidden"
+  >
 
     <div class="card final">
 
-      <div class="big-heart">♡</div>
+      <div class="final-heart">
+        ♡
+      </div>
 
-      <h2>谢谢你，还是选择了我。</h2>
+      <h2>
+        You chose each other again.
+      </h2>
 
       <p>
-        今天是你们一起走过的又一年。<br>
-        不需要每一个答案都一样，<br>
-        能坐在一起认真听对方说完，就已经很好。
+        Another year together.<br>
+        Another year of choosing each other.
       </p>
 
-      <div class="memory-note">
 
-        <label class="answer-label">
-          写给明年的我们
+      <div
+        class="divider"
+        style="margin-top:28px"
+      ></div>
+
+
+      <div class="field">
+
+        <label>
+          One thing I hope we have one year from now...
         </label>
 
         <textarea
-          id="nextYear"
-          placeholder="明年的今天，我希望我们……"
+          id="finalAnswer"
+          placeholder="Write something for the two of you..."
         ></textarea>
 
       </div>
 
-      <br>
 
-      <button class="button primary" onclick="goHome()">
-        再玩一次
+      <button
+        class="btn btn-primary"
+        onclick="saveFinalAnswer()"
+      >
+        Save this moment ❤️
       </button>
+
+
+      <div
+        id="finalSaved"
+        class="hidden"
+        style="margin-top:18px;color:#63745f;font-size:13px"
+      >
+        Saved. See you next anniversary. ♡
+      </div>
 
     </div>
 
@@ -524,249 +1028,1881 @@
 </div>
 
 
-<script>
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<script type="module">
+
+  /*
+   ============================================================
+   FIREBASE CONFIG
+   ============================================================
+
+   REPLACE THESE VALUES WITH YOUR OWN FIREBASE WEB APP CONFIG.
+
+   Firebase Console
+   → Project Settings
+   → Your apps
+   → Web app
+   */
+
+  const firebaseConfig = {
+
+    apiKey: "PASTE_YOUR_API_KEY_HERE",
+
+    authDomain:
+      "PASTE_YOUR_PROJECT.firebaseapp.com",
+
+    databaseURL:
+      "PASTE_YOUR_DATABASE_URL_HERE",
+
+    projectId:
+      "PASTE_YOUR_PROJECT_ID",
+
+    storageBucket:
+      "PASTE_YOUR_STORAGE_BUCKET_HERE",
+
+    messagingSenderId:
+      "PASTE_YOUR_MESSAGING_SENDER_ID",
+
+    appId:
+      "PASTE_YOUR_APP_ID"
+
+  };
+
+
+  /*
+   ============================================================
+   FIREBASE IMPORTS
+   ============================================================
+  */
+
+  import {
+    initializeApp
+  }
+  from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+  import {
+    getAuth,
+    signInAnonymously,
+    onAuthStateChanged
+  }
+  from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+  import {
+    getDatabase,
+    ref,
+    set,
+    update,
+    get,
+    onValue
+  }
+  from
+    "https://www.gstatic.com/firebasejs/12.18.0/firebase-database.js";
+
+
+  /*
+   ============================================================
+   INITIALIZE
+   ============================================================
+  */
+
+  const app =
+    initializeApp(firebaseConfig);
+
+  const auth =
+    getAuth(app);
+
+  const db =
+    getDatabase(app);
+
+
+  /*
+   ============================================================
+   QUESTIONS
+   ============================================================
+  */
 
   const games = {
 
     guess: {
-      title: "你猜我答",
+
+      name: "💕 You Guess Me",
+
       questions: [
-        "你觉得另一半最喜欢你身上的哪个特质？",
-        "你觉得另一半认为你们结婚以来最幸福的一年是哪一年？",
-        "你觉得另一半最希望你改掉的一个小习惯是什么？",
-        "你觉得另一半最想和你一起去哪里度一个只有两个人的假？",
-        "你觉得另一半认为你们两个谁比较会经营婚姻？为什么？",
-        "你觉得另一半最害怕你们以后变成什么样的夫妻？",
-        "你觉得另一半最想和你一起完成的一件事是什么？",
-        "你觉得另一半现在还会不会重新选择你？",
-        "如果今天第一次认识你，你觉得另一半还会主动追你吗？",
-        "你觉得另一半现在最需要你理解的一件事是什么？"
+
+        "What do you think your partner loves most about you?",
+
+        "What do you think your partner thinks is your best quality?",
+
+        "What do you think your partner remembers most fondly about your dating days?",
+
+        "What do you think your partner misses most about your life before having a baby?",
+
+        "What do you think your partner thinks is the best thing about your marriage?",
+
+        "What do you think your partner would choose for your next couple-only holiday?",
+
+        "What do you think your partner wants you two to do more often?",
+
+        "What do you think your partner is most proud of about the two of you?",
+
+        "What do you think your partner hopes your life looks like in 10 years?",
+
+        "Do you think your partner would choose you again? Why?"
       ]
+
     },
+
 
     couple: {
-      title: "夫妻默契测试",
+
+      name: "😂 Couple Compatibility",
+
       questions: [
-        "谁比较容易先道歉？",
-        "谁比较爱花钱？",
-        "谁比较容易心软？",
-        "谁比较难哄？",
-        "谁比较需要独处？",
-        "谁比较容易因为小事不开心？",
-        "谁比较适合一个人带宝宝一天？😂",
-        "谁比较可能50岁还想去旅行？",
-        "谁比较可能突然辞职去做完全不同的事情？",
-        "谁比较离不开对方？"
+
+        "Who is more likely to apologise first?",
+
+        "Who is more likely to spend money impulsively?",
+
+        "Who is more likely to say 'I'm fine' when they are absolutely not fine?",
+
+        "Who is harder to convince when they have made up their mind?",
+
+        "Who needs more alone time?",
+
+        "Who is more likely to suggest booking a holiday?",
+
+        "Who would survive better alone with the baby for 24 hours? 😂",
+
+        "Who is more likely to still want to travel constantly at 50?",
+
+        "Who is more likely to suddenly quit their job and do something completely different?",
+
+        "Who is more emotionally dependent on the other?"
       ]
+
     },
+
 
     year: {
-      title: "这一年的我们",
+
+      name: "🥹 This Year, Us",
+
       questions: [
-        "今年我最感谢你的一件事是什么？",
-        "今年什么时候，我觉得你特别辛苦？",
-        "今年什么时候，我觉得你特别可爱？",
-        "今年有没有一个瞬间，让我觉得“我们真的成为一家人了”？",
-        "今年我觉得自己作为另一半做得最好的一件事是什么？",
-        "今年我觉得自己作为另一半做得不够好的是什么？",
-        "有宝宝以后，我最想念我们以前的什么？",
-        "有宝宝以后，我最喜欢现在的我们什么？",
-        "明年我希望我们两个人多做的一件事是什么？",
-        "明年我希望我们永远不要失去的一件事是什么？"
+
+        "What is one thing you are most grateful to your partner for this year?",
+
+        "When this year did you think your partner was having the hardest time?",
+
+        "When this year did you find your partner especially cute?",
+
+        "What was one moment when you thought, 'We really are a family now'?",
+
+        "What is one thing you think you did well as a partner this year?",
+
+        "What is one thing you wish you had done better as a partner this year?",
+
+        "What do you miss most about the two of you before becoming parents?",
+
+        "What do you love most about the two of you now?",
+
+        "What is one thing you want the two of you to do more of next year?",
+
+        "What is one thing you never want the two of you to lose?"
       ]
+
     },
 
+
     future: {
-      title: "如果人生重来一次",
+
+      name: "🔮 If We Could Start Again",
+
       questions: [
-        "如果你知道今天我们会走到现在，你还会做出当年同样的选择吗？",
-        "如果重新认识一次，你还会选择和我谈恋爱吗？",
-        "你会不会希望我们早点认识？",
-        "有没有什么事情，你希望我们当年做得不一样？",
-        "如果可以重新经历一次我们的婚礼，你会改变什么？",
-        "如果没有任何现实限制，你希望我们未来一起在哪里生活？",
-        "如果我们老了，你希望我们的生活是什么样的？",
-        "你觉得70岁的我会是什么样的人？",
-        "你觉得70岁的我们还会不会约会？",
-        "如果人生真的可以重来，你还是会选我吗？为什么？"
+
+        "If you knew back then that we'd end up here, would you make the same choices?",
+
+        "If you met me for the first time today, would you still choose to date me?",
+
+        "Do you wish we had met earlier?",
+
+        "Is there anything you wish we had done differently before getting married?",
+
+        "If you could relive our wedding day, what would you change?",
+
+        "If money and work were no issue, where would you want us to live?",
+
+        "What do you hope our life looks like when we're old?",
+
+        "What do you think 70-year-old me will be like?",
+
+        "Do you think 70-year-old us will still go on dates?",
+
+        "If you could live your life again, would you still choose me? Why?"
       ]
+
     }
 
   };
 
 
-  let currentGame = null;
-  let currentQuestion = 0;
+  /*
+   ============================================================
+   LOCAL STATE
+   ============================================================
+  */
+
+  let currentUser = null;
+
+  let playerId = null;
+
+  let playerName = "";
+
+  let roomId = null;
+
+  let isHost = false;
+
+  let roomData = null;
+
+  let currentMode = null;
+
+  let currentQuestionIndex = 0;
+
+  let selectedChoice = null;
+
+  let unsubscribeRoom = null;
 
 
-  function startGame(type) {
+  /*
+   ============================================================
+   AUTH
+   ============================================================
+  */
 
-    currentGame = games[type];
-    currentQuestion = 0;
+  onAuthStateChanged(auth, user => {
 
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("final").classList.add("hidden");
-    document.getElementById("game").classList.remove("hidden");
+    if (user) {
 
-    setupMode(type);
-    renderQuestion();
+      currentUser = user;
+
+      playerId = user.uid;
+
+    }
+
+  });
+
+
+  signInAnonymously(auth)
+    .catch(error => {
+
+      console.error(error);
+
+      showToast(
+        "Firebase authentication failed."
+      );
+
+    });
+
+
+  /*
+   ============================================================
+   UI HELPERS
+   ============================================================
+  */
+
+  window.showGameSelection =
+    function() {
+
+      const name =
+        document
+          .getElementById("playerName")
+          .value
+          .trim();
+
+      if (!name) {
+
+        showToast(
+          "先告诉我你的名字 ❤️"
+        );
+
+        return;
+      }
+
+      playerName = name;
+
+      document
+        .getElementById("gameSelection")
+        .classList.remove("hidden");
+
+    };
+
+
+  window.showJoinRoom =
+    function() {
+
+      document
+        .getElementById("gameSelection")
+        .classList.add("hidden");
+
+      document
+        .getElementById("joinCard")
+        .classList.remove("hidden");
+
+    };
+
+
+  function showScreen(id) {
+
+    [
+      "home",
+      "lobby",
+      "game",
+      "final"
+    ].forEach(screen => {
+
+      document
+        .getElementById(screen)
+        .classList.add("hidden");
+
+    });
+
+    document
+      .getElementById(id)
+      .classList.remove("hidden");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
 
   }
 
 
-  function setupMode(type) {
+  function showToast(message) {
 
-    document.getElementById("normalAnswers").classList.add("hidden");
-    document.getElementById("guessAnswers").classList.add("hidden");
-    document.getElementById("coupleAnswers").classList.add("hidden");
+    const toast =
+      document.getElementById("toast");
 
-    if (type === "guess") {
-      document.getElementById("guessAnswers").classList.remove("hidden");
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 2500);
+
+  }
+
+
+  function generateRoomCode() {
+
+    const chars =
+      "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let result = "";
+
+    for (let i = 0; i < 6; i++) {
+
+      result +=
+        chars[
+          Math.floor(
+            Math.random() * chars.length
+          )
+        ];
+
     }
 
-    else if (type === "couple") {
-      document.getElementById("coupleAnswers").classList.remove("hidden");
+    return result;
+
+  }
+
+
+  /*
+   ============================================================
+   CREATE ROOM
+   ============================================================
+  */
+
+  window.createRoom =
+    async function(mode) {
+
+      if (!currentUser) {
+
+        showToast(
+          "Connecting to Firebase..."
+        );
+
+        return;
+
+      }
+
+      currentMode = mode;
+
+      roomId =
+        generateRoomCode();
+
+      isHost = true;
+
+      const roomRef =
+        ref(
+          db,
+          "rooms/" + roomId
+        );
+
+
+      const initialRoom = {
+
+        mode: mode,
+
+        players: {
+
+          host: {
+
+            uid: playerId,
+
+            name: playerName,
+
+            ready: false,
+
+            online: true
+
+          },
+
+          guest: null
+
+        },
+
+        state: {
+
+          questionIndex: 0,
+
+          status: "lobby"
+
+        },
+
+        answers: {},
+
+        createdAt:
+          Date.now()
+
+      };
+
+
+      try {
+
+        await set(
+          roomRef,
+          initialRoom
+        );
+
+        listenToRoom();
+
+        showScreen("lobby");
+
+        updateLobbyUI(
+          initialRoom
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "无法创建房间，请检查 Firebase 设置。"
+        );
+
+      }
+
+    };
+
+
+  /*
+   ============================================================
+   JOIN ROOM
+   ============================================================
+  */
+
+  window.joinRoom =
+    async function() {
+
+      const code =
+        document
+          .getElementById("roomCodeInput")
+          .value
+          .trim()
+          .toUpperCase();
+
+
+      if (code.length !== 6) {
+
+        showToast(
+          "请输入6位房间号码。"
+        );
+
+        return;
+
+      }
+
+
+      if (!currentUser) {
+
+        showToast(
+          "Connecting..."
+        );
+
+        return;
+
+      }
+
+
+      const roomRef =
+        ref(
+          db,
+          "rooms/" + code
+        );
+
+
+      try {
+
+        const snapshot =
+          await get(roomRef);
+
+
+        if (!snapshot.exists()) {
+
+          showToast(
+            "找不到这个房间。"
+          );
+
+          return;
+
+        }
+
+
+        const data =
+          snapshot.val();
+
+
+        if (
+          data.players &&
+          data.players.guest
+        ) {
+
+          showToast(
+            "这个房间已经有两个人了。"
+          );
+
+          return;
+
+        }
+
+
+        roomId = code;
+
+        isHost = false;
+
+        currentMode = data.mode;
+
+
+        await update(
+          roomRef,
+          {
+
+            "players/guest": {
+
+              uid: playerId,
+
+              name: playerName,
+
+              ready: false,
+
+              online: true
+
+            }
+
+          }
+        );
+
+
+        listenToRoom();
+
+        showScreen("lobby");
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "加入房间失败。"
+        );
+
+      }
+
+    };
+
+
+  /*
+   ============================================================
+   REALTIME LISTENER
+   ============================================================
+  */
+
+  function listenToRoom() {
+
+    if (unsubscribeRoom) {
+
+      unsubscribeRoom();
+
+    }
+
+
+    const roomRef =
+      ref(
+        db,
+        "rooms/" + roomId
+      );
+
+
+    unsubscribeRoom =
+      onValue(
+        roomRef,
+        snapshot => {
+
+          if (!snapshot.exists()) {
+
+            showToast(
+              "房间已经不存在。"
+            );
+
+            return;
+
+          }
+
+
+          roomData =
+            snapshot.val();
+
+
+          currentMode =
+            roomData.mode;
+
+
+          currentQuestionIndex =
+            roomData.state?.questionIndex || 0;
+
+
+          const status =
+            roomData.state?.status;
+
+
+          if (status === "lobby") {
+
+            showScreen("lobby");
+
+            updateLobbyUI(
+              roomData
+            );
+
+          }
+
+          else if (
+            status === "playing" ||
+            status === "revealed"
+          ) {
+
+            showScreen("game");
+
+            renderGame();
+
+          }
+
+          else if (
+            status === "finished"
+          ) {
+
+            showScreen("final");
+
+          }
+
+        },
+
+        error => {
+
+          console.error(error);
+
+          showToast(
+            "Realtime connection lost."
+          );
+
+        }
+      );
+
+  }
+
+
+  /*
+   ============================================================
+   LOBBY
+   ============================================================
+  */
+
+  function updateLobbyUI(data) {
+
+    document
+      .getElementById("roomCodeDisplay")
+      .textContent =
+      roomId;
+
+
+    document
+      .getElementById("hostName")
+      .textContent =
+      data.players?.host?.name ||
+      "Waiting...";
+
+
+    if (
+      data.players?.guest
+    ) {
+
+      document
+        .getElementById("guestName")
+        .textContent =
+        data.players.guest.name;
+
+
+      document
+        .getElementById("guestDot")
+        .classList.add("online");
+
+
+      document
+        .getElementById("lobbyMessage")
+        .innerHTML = `
+
+          <div class="waiting-icon">
+            🥂
+          </div>
+
+          <h3>
+            Both of you are here.
+          </h3>
+
+          <p>
+            Ready when you are.
+          </p>
+
+        `;
+
+
+      if (isHost) {
+
+        document
+          .getElementById("startButton")
+          .classList.remove("hidden");
+
+      }
+
+    }
+
+  }
+
+
+  /*
+   ============================================================
+   START GAME
+   ============================================================
+  */
+
+  window.startGame =
+    async function() {
+
+      if (!isHost) {
+
+        return;
+
+      }
+
+
+      await update(
+        ref(
+          db,
+          "rooms/" + roomId + "/state"
+        ),
+        {
+
+          questionIndex: 0,
+
+          status: "playing"
+
+        }
+      );
+
+    };
+
+
+  /*
+   ============================================================
+   RENDER GAME
+   ============================================================
+  */
+
+  function renderGame() {
+
+    const game =
+      games[currentMode];
+
+
+    const question =
+      game.questions[
+        currentQuestionIndex
+      ];
+
+
+    document
+      .getElementById("gameModeLabel")
+      .textContent =
+      game.name;
+
+
+    document
+      .getElementById("questionCounter")
+      .textContent =
+      `${currentQuestionIndex + 1} / ${game.questions.length}`;
+
+
+    document
+      .getElementById("progressFill")
+      .style.width =
+      `${(
+        (currentQuestionIndex + 1) /
+        game.questions.length
+      ) * 100}%`;
+
+
+    document
+      .getElementById("roundLabel")
+      .textContent =
+      "QUESTION " +
+      (currentQuestionIndex + 1);
+
+
+    document
+      .getElementById("questionText")
+      .textContent =
+      question;
+
+
+    renderAnswerArea();
+
+    renderStatus();
+
+    renderReveal();
+
+  }
+
+
+  /*
+   ============================================================
+   ANSWER AREA
+   ============================================================
+  */
+
+  function renderAnswerArea() {
+
+    const container =
+      document.getElementById(
+        "answerArea"
+      );
+
+
+    const answer =
+      getMyAnswer();
+
+
+    if (roomData.state?.status === "revealed") {
+
+      container.innerHTML = "";
+
+      document
+        .getElementById("submitButton")
+        .classList.add("hidden");
+
+      return;
+
+    }
+
+
+    document
+      .getElementById("submitButton")
+      .classList.remove("hidden");
+
+
+    if (
+      answer &&
+      answer.submitted
+    ) {
+
+      container.innerHTML = `
+
+        <div class="waiting">
+
+          <div class="waiting-icon">
+            🔒
+          </div>
+
+          <h3>
+            Answer locked.
+          </h3>
+
+          <p>
+            Waiting for your partner to finish...
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+    if (currentMode === "couple") {
+
+      container.innerHTML = `
+
+        <label>
+          Your answer
+        </label>
+
+        <div class="choices">
+
+          <button
+            class="choice"
+            data-choice="me"
+          >
+            Me
+          </button>
+
+          <button
+            class="choice"
+            data-choice="partner"
+          >
+            My partner
+          </button>
+
+        </div>
+
+      `;
+
+
+      container
+        .querySelectorAll(".choice")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              container
+                .querySelectorAll(".choice")
+                .forEach(b =>
+                  b.classList.remove(
+                    "selected"
+                  )
+                );
+
+
+              button.classList.add(
+                "selected"
+              );
+
+
+              selectedChoice =
+                button.dataset.choice;
+
+            }
+          );
+
+        });
+
+
+      selectedChoice = null;
+
+    }
+
+
+    else if (currentMode === "guess") {
+
+      container.innerHTML = `
+
+        <div class="field">
+
+          <label>
+            Your guess — what will your partner say?
+          </label>
+
+          <textarea
+            id="guessInput"
+            placeholder="I think they'll say..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label>
+            Your actual answer
+          </label>
+
+          <textarea
+            id="actualInput"
+            placeholder="My real answer is..."
+          ></textarea>
+
+        </div>
+
+      `;
+
+    }
+
+
+    else {
+
+      container.innerHTML = `
+
+        <label>
+          Your answer
+        </label>
+
+        <textarea
+          id="normalInput"
+          placeholder="Take your time..."
+        ></textarea>
+
+      `;
+
+    }
+
+  }
+
+
+  /*
+   ============================================================
+   GET MY ANSWER
+   ============================================================
+  */
+
+  function getMyAnswer() {
+
+    return roomData
+      ?.answers
+      ?.["q" + currentQuestionIndex]
+      ?.[
+        isHost
+          ? "host"
+          : "guest"
+      ];
+
+  }
+
+
+  /*
+   ============================================================
+   SUBMIT
+   ============================================================
+  */
+
+  window.submitAnswer =
+    async function() {
+
+      let answerData = null;
+
+
+      if (currentMode === "couple") {
+
+        if (!selectedChoice) {
+
+          showToast(
+            "先选择一个答案 ❤️"
+          );
+
+          return;
+
+        }
+
+
+        answerData = {
+
+          choice: selectedChoice,
+
+          submitted: true
+
+        };
+
+      }
+
+
+      else if (currentMode === "guess") {
+
+        const guess =
+          document
+            .getElementById("guessInput")
+            ?.value
+            .trim();
+
+
+        const actual =
+          document
+            .getElementById("actualInput")
+            ?.value
+            .trim();
+
+
+        if (!guess || !actual) {
+
+          showToast(
+            "两个答案都要填写。"
+          );
+
+          return;
+
+        }
+
+
+        answerData = {
+
+          guess: guess,
+
+          actual: actual,
+
+          submitted: true
+
+        };
+
+      }
+
+
+      else {
+
+        const text =
+          document
+            .getElementById("normalInput")
+            ?.value
+            .trim();
+
+
+        if (!text) {
+
+          showToast(
+            "先写下你的答案 ❤️"
+          );
+
+          return;
+
+        }
+
+
+        answerData = {
+
+          text: text,
+
+          submitted: true
+
+        };
+
+      }
+
+
+      const playerKey =
+        isHost
+          ? "host"
+          : "guest";
+
+
+      const path =
+        `rooms/${roomId}/answers/q${currentQuestionIndex}/${playerKey}`;
+
+
+      try {
+
+        await set(
+          ref(db, path),
+          answerData
+        );
+
+
+        showToast(
+          "Answer locked 🔒"
+        );
+
+
+        /*
+         --------------------------------------------------------
+         Check whether both players submitted.
+         --------------------------------------------------------
+        */
+
+        const answerRef =
+          ref(
+            db,
+            `rooms/${roomId}/answers/q${currentQuestionIndex}`
+          );
+
+
+        const snapshot =
+          await get(answerRef);
+
+
+        const answers =
+          snapshot.val();
+
+
+        if (
+          answers?.host?.submitted &&
+          answers?.guest?.submitted
+        ) {
+
+          await update(
+            ref(
+              db,
+              `rooms/${roomId}/state`
+            ),
+            {
+
+              status: "revealed"
+
+            }
+          );
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        showToast(
+          "Could not save your answer."
+        );
+
+      }
+
+    };
+
+
+  /*
+   ============================================================
+   STATUS
+   ============================================================
+  */
+
+  function renderStatus() {
+
+    const status =
+      document.getElementById(
+        "liveStatus"
+      );
+
+
+    const q =
+      roomData.answers?.[
+        "q" + currentQuestionIndex
+      ] || {};
+
+
+    const me =
+      q[
+        isHost
+          ? "host"
+          : "guest"
+      ];
+
+
+    const partner =
+      q[
+        isHost
+          ? "guest"
+          : "host"
+      ];
+
+
+    if (
+      roomData.state?.status ===
+      "revealed"
+    ) {
+
+      status.innerHTML = `
+        <strong>Both answers are in.</strong><br>
+        Time to see what the other person said.
+      `;
+
+      return;
+
+    }
+
+
+    if (me?.submitted) {
+
+      if (partner?.submitted) {
+
+        status.innerHTML = `
+          <strong>Both answers are in.</strong>
+        `;
+
+      }
+
+      else {
+
+        status.innerHTML = `
+          <strong>Your answer is locked.</strong><br>
+          Waiting for your partner...
+        `;
+
+      }
+
     }
 
     else {
-      document.getElementById("normalAnswers").classList.remove("hidden");
+
+      status.innerHTML = `
+        Your partner can't see your answer yet.
+      `;
+
     }
 
   }
 
 
-  function renderQuestion() {
+  /*
+   ============================================================
+   REVEAL
+   ============================================================
+  */
 
-    const q = currentGame.questions[currentQuestion];
+  function renderReveal() {
 
-    document.getElementById("questionNumber").textContent =
-      currentGame.title;
-
-    document.getElementById("question").textContent = q;
-
-    document.getElementById("counter").textContent =
-      `${currentQuestion + 1} / ${currentGame.questions.length}`;
-
-    const progress =
-      ((currentQuestion + 1) / currentGame.questions.length) * 100;
-
-    document.getElementById("progressFill").style.width =
-      progress + "%";
-
-    clearInputs();
-
-  }
+    const area =
+      document.getElementById(
+        "revealArea"
+      );
 
 
-  function clearInputs() {
-
-    const ids = [
-      "answer1",
-      "answer2",
-      "guess",
-      "realAnswer"
-    ];
-
-    ids.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = "";
-    });
-
-    document.getElementById("revealBox")
-      .classList.add("hidden");
-
-    document.querySelectorAll(".choice")
-      .forEach(btn => btn.classList.remove("selected"));
-
-  }
+    const nextButton =
+      document.getElementById(
+        "nextButton"
+      );
 
 
-  function revealGuess() {
+    if (
+      roomData.state?.status !==
+      "revealed"
+    ) {
 
-    const guess =
-      document.getElementById("guess").value.trim();
+      area.classList.add("hidden");
 
-    const real =
-      document.getElementById("realAnswer").value.trim();
+      nextButton.classList.add(
+        "hidden"
+      );
 
-    if (!guess || !real) {
-      alert("先把“猜测”和“真实答案”都写下来 ❤️");
       return;
+
     }
 
-    document.getElementById("revealText").innerHTML =
-      `<b>你猜：</b>${escapeHtml(guess)}<br><br>
-       <b>真实答案：</b>${escapeHtml(real)}`;
 
-    document.getElementById("revealBox")
-      .classList.remove("hidden");
+    area.classList.remove("hidden");
+
+
+    const q =
+      roomData.answers?.[
+        "q" + currentQuestionIndex
+      ] || {};
+
+
+    const mine =
+      q[
+        isHost
+          ? "host"
+          : "guest"
+      ];
+
+
+    const partner =
+      q[
+        isHost
+          ? "guest"
+          : "host"
+      ];
+
+
+    const myName =
+      roomData.players?.[
+        isHost
+          ? "host"
+          : "guest"
+      ]?.name ||
+      "You";
+
+
+    const partnerName =
+      roomData.players?.[
+        isHost
+          ? "guest"
+          : "host"
+      ]?.name ||
+      "Your partner";
+
+
+    let html = "";
+
+
+    if (currentMode === "guess") {
+
+      html += `
+
+        <div class="answer-card mine">
+
+          <div class="answer-name">
+            ${escapeHtml(myName)}
+          </div>
+
+          <div class="answer-text">
+
+            <strong>My guess:</strong><br>
+            ${escapeHtml(mine.guess)}
+
+            <br><br>
+
+            <strong>My actual answer:</strong><br>
+            ${escapeHtml(mine.actual)}
+
+          </div>
+
+        </div>
+
+
+        <div class="answer-card">
+
+          <div class="answer-name">
+            ${escapeHtml(partnerName)}
+          </div>
+
+          <div class="answer-text">
+
+            <strong>Their guess:</strong><br>
+            ${escapeHtml(partner.guess)}
+
+            <br><br>
+
+            <strong>Their actual answer:</strong><br>
+            ${escapeHtml(partner.actual)}
+
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    else if (currentMode === "couple") {
+
+      const myChoice =
+        mine.choice === "me"
+          ? myName
+          : partnerName;
+
+
+      const partnerChoice =
+        partner.choice === "me"
+          ? partnerName
+          : myName;
+
+
+      html += `
+
+        <div class="answer-card mine">
+
+          <div class="answer-name">
+            ${escapeHtml(myName)}
+          </div>
+
+          <div class="answer-text">
+            ${escapeHtml(myChoice)}
+          </div>
+
+        </div>
+
+
+        <div class="answer-card">
+
+          <div class="answer-name">
+            ${escapeHtml(partnerName)}
+          </div>
+
+          <div class="answer-text">
+            ${escapeHtml(partnerChoice)}
+          </div>
+
+        </div>
+
+      `;
+
+
+      if (
+        mine.choice ===
+        partner.choice
+      ) {
+
+        html += `
+
+          <div class="match">
+            🎉 MATCH!
+          </div>
+
+        `;
+
+      }
+
+    }
+
+
+    else {
+
+      html += `
+
+        <div class="answer-card mine">
+
+          <div class="answer-name">
+            ${escapeHtml(myName)}
+          </div>
+
+          <div class="answer-text">
+            ${escapeHtml(
+              mine.text
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="answer-card">
+
+          <div class="answer-name">
+            ${escapeHtml(partnerName)}
+          </div>
+
+          <div class="answer-text">
+            ${escapeHtml(
+              partner.text
+            )}
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    area.innerHTML = html;
+
+
+    if (
+      currentQuestionIndex <
+      games[currentMode].questions.length - 1
+    ) {
+
+      nextButton.classList.remove(
+        "hidden"
+      );
+
+      const ready =
+        roomData.state?.nextReady || {};
+
+
+      const myKey =
+        isHost
+          ? "host"
+          : "guest";
+
+
+      if (ready[myKey]) {
+
+        nextButton.textContent =
+          "Waiting for your partner...";
+
+        nextButton.disabled = true;
+
+      }
+
+      else {
+
+        nextButton.textContent =
+          "I'm ready for the next one →";
+
+        nextButton.disabled = false;
+
+      }
+
+    }
+
+    else {
+
+      nextButton.classList.remove(
+        "hidden"
+      );
+
+      const ready =
+        roomData.state?.nextReady || {};
+
+
+      const myKey =
+        isHost
+          ? "host"
+          : "guest";
+
+
+      if (ready[myKey]) {
+
+        nextButton.textContent =
+          "Waiting for your partner...";
+
+        nextButton.disabled = true;
+
+      }
+
+      else {
+
+        nextButton.textContent =
+          "Finish our game ♡";
+
+        nextButton.disabled = false;
+
+      }
+
+    }
 
   }
 
 
-  function selectChoice(button) {
+  /*
+   ============================================================
+   READY FOR NEXT
+   ============================================================
+  */
 
-    const parent = button.parentElement;
+  window.readyForNext =
+    async function() {
 
-    parent.querySelectorAll(".choice")
-      .forEach(btn => btn.classList.remove("selected"));
-
-    button.classList.add("selected");
-
-  }
+      const myKey =
+        isHost
+          ? "host"
+          : "guest";
 
 
-  function nextQuestion() {
+      const nextReadyPath =
+        `rooms/${roomId}/state/nextReady/${myKey}`;
 
-    if (currentQuestion <
-        currentGame.questions.length - 1) {
 
-      currentQuestion++;
-      renderQuestion();
+      await set(
+        ref(db, nextReadyPath),
+        true
+      );
 
-    } else {
 
-      document.getElementById("game")
-        .classList.add("hidden");
+      const snapshot =
+        await get(
+          ref(
+            db,
+            `rooms/${roomId}/state/nextReady`
+          )
+        );
 
-      document.getElementById("final")
+
+      const ready =
+        snapshot.val();
+
+
+      if (
+        ready?.host &&
+        ready?.guest
+      ) {
+
+        const nextIndex =
+          currentQuestionIndex + 1;
+
+
+        if (
+          nextIndex >=
+          games[currentMode].questions.length
+        ) {
+
+          await update(
+            ref(
+              db,
+              `rooms/${roomId}/state`
+            ),
+            {
+
+              status: "finished",
+
+              nextReady: null
+
+            }
+          );
+
+        }
+
+        else {
+
+          await update(
+            ref(
+              db,
+              `rooms/${roomId}/state`
+            ),
+            {
+
+              questionIndex:
+                nextIndex,
+
+              status:
+                "playing",
+
+              nextReady:
+                null
+
+            }
+          );
+
+        }
+
+      }
+
+    };
+
+
+  /*
+   ============================================================
+   FINAL ANSWER
+   ============================================================
+  */
+
+  window.saveFinalAnswer =
+    async function() {
+
+      const text =
+        document
+          .getElementById("finalAnswer")
+          .value
+          .trim();
+
+
+      if (!text) {
+
+        showToast(
+          "Write something first ❤️"
+        );
+
+        return;
+
+      }
+
+
+      const key =
+        isHost
+          ? "host"
+          : "guest";
+
+
+      await set(
+        ref(
+          db,
+          `rooms/${roomId}/finalAnswers/${key}`
+        ),
+        {
+
+          name: playerName,
+
+          text: text,
+
+          savedAt: Date.now()
+
+        }
+      );
+
+
+      document
+        .getElementById("finalSaved")
         .classList.remove("hidden");
 
-    }
-
-  }
+    };
 
 
-  function previousQuestion() {
+  /*
+   ============================================================
+   LEAVE
+   ============================================================
+  */
 
-    if (currentQuestion > 0) {
+  window.confirmLeave =
+    function() {
 
-      currentQuestion--;
-      renderQuestion();
-
-    }
-
-  }
-
-
-  function goHome() {
-
-    document.getElementById("game")
-      .classList.add("hidden");
-
-    document.getElementById("final")
-      .classList.add("hidden");
-
-    document.getElementById("home")
-      .classList.remove("hidden");
-
-  }
+      const yes =
+        confirm(
+          "Leave this anniversary game?"
+        );
 
 
-  function escapeHtml(text) {
+      if (!yes) return;
 
-    const div = document.createElement("div");
-    div.textContent = text;
+
+      if (unsubscribeRoom) {
+
+        unsubscribeRoom();
+
+      }
+
+
+      location.reload();
+
+    };
+
+
+  /*
+   ============================================================
+   ESCAPE HTML
+   ============================================================
+  */
+
+  function escapeHtml(value) {
+
+    const div =
+      document.createElement(
+        "div"
+      );
+
+    div.textContent =
+      value ?? "";
+
     return div.innerHTML;
 
   }
@@ -775,4 +2911,3 @@
 
 </body>
 </html>
-```
