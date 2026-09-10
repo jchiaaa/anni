@@ -240,6 +240,12 @@
       box-shadow: 0 8px 22px rgba(70,50,40,.07);
     }
 
+    .mode.selected {
+      background: #ebe0d8;
+      border-color: #947666;
+      box-shadow: 0 0 0 2px rgba(148,118,102,.08);
+    }
+
     .mode-title {
       font-size: 16px;
       font-weight: 650;
@@ -627,67 +633,22 @@
       class="card hidden"
     >
 
-      <h2>Choose tonight's game</h2>
+      <h2>What would you like to do?</h2>
 
       <div class="description">
-        You'll be able to play the same game together in real time.
+        Create a room first, or join your partner using their room code.
       </div>
 
-
       <button
-        class="mode"
-        onclick="createRoom('guess')"
+        class="btn btn-primary"
+        onclick="createRoom()"
       >
-
-        <div class="mode-title">
-          💕 How well do you know me?
-        </div>
-
-        <div class="mode-description">
-          Guess what your partner will say, then reveal the real answer.
-        </div>
-
+        Create a room
       </button>
-
-
-      <button
-        class="mode"
-        onclick="createRoom('remember')"
-      >
-
-        <div class="mode-title">
-          📸 Remember When...
-        </div>
-
-        <div class="mode-description">
-          The stories, little moments, and memories that made us us.
-        </div>
-
-      </button>
-
-
-      <button
-        class="mode"
-        onclick="createRoom('future')"
-      >
-
-        <div class="mode-title">
-          🔮 If We Could Start Again
-        </div>
-
-        <div class="mode-description">
-          The deeper questions. Save this one for dessert.
-        </div>
-
-      </button>
-
-
-      <div class="divider"></div>
-
 
       <button
         class="btn btn-outline"
-        style="width:100%"
+        style="width:100%;margin-top:10px"
         onclick="showJoinRoom()"
       >
         Join an existing room
@@ -796,6 +757,68 @@
 
 
       <div
+        id="hostGameSelection"
+        class="hidden"
+        style="margin-top:22px"
+      >
+
+        <div class="divider"></div>
+
+        <h3 style="font-family:Georgia,serif;font-weight:400;margin:0 0 8px">
+          Choose tonight's game
+        </h3>
+
+        <div class="description">
+          You can change your choice any time before you start.
+        </div>
+
+        <button
+          class="mode lobby-mode"
+          data-mode="guess"
+          onclick="selectGameMode('guess')"
+        >
+          <div class="mode-title">💕 How well do you know me?</div>
+          <div class="mode-description">
+            Guess what your partner will say, then reveal the real answer.
+          </div>
+        </button>
+
+        <button
+          class="mode lobby-mode"
+          data-mode="remember"
+          onclick="selectGameMode('remember')"
+        >
+          <div class="mode-title">📸 Remember When...</div>
+          <div class="mode-description">
+            The stories, little moments, and memories that made us us.
+          </div>
+        </button>
+
+        <button
+          class="mode lobby-mode"
+          data-mode="future"
+          onclick="selectGameMode('future')"
+        >
+          <div class="mode-title">🔮 If We Could Start Again</div>
+          <div class="mode-description">
+            The deeper questions. Save this one for dessert.
+          </div>
+        </button>
+
+      </div>
+
+      <div
+        id="guestGameSelection"
+        class="hidden"
+        style="margin-top:18px"
+      >
+        <div class="answer-status" id="guestSelectedGame">
+          Waiting for the host to choose a game...
+        </div>
+      </div>
+
+
+      <div
         id="lobbyMessage"
         class="waiting"
       >
@@ -822,6 +845,15 @@
         onclick="startGame()"
       >
         Start the game ❤️
+      </button>
+
+      <button
+        id="cancelRoomButton"
+        class="btn btn-outline hidden"
+        style="width:100%;margin-top:10px"
+        onclick="cancelRoom()"
+      >
+        Cancel room
       </button>
 
     </div>
@@ -1391,7 +1423,7 @@ const games = {
   */
 
   window.createRoom =
-    async function(mode) {
+    async function() {
 
       if (!currentUser) {
 
@@ -1403,7 +1435,7 @@ const games = {
 
       }
 
-      currentMode = mode;
+      currentMode = null;
 
       roomId =
         generateRoomCode();
@@ -1419,7 +1451,7 @@ const games = {
 
       const initialRoom = {
 
-        mode: mode,
+        mode: null,
 
         players: {
 
@@ -1732,9 +1764,66 @@ const games = {
       "Waiting...";
 
 
-    if (
-      data.players?.guest
-    ) {
+    const hostSelection =
+      document.getElementById("hostGameSelection");
+
+    const guestSelection =
+      document.getElementById("guestGameSelection");
+
+    const startButton =
+      document.getElementById("startButton");
+
+    const cancelButton =
+      document.getElementById("cancelRoomButton");
+
+
+    if (isHost) {
+
+      hostSelection.classList.remove("hidden");
+      guestSelection.classList.add("hidden");
+      cancelButton.classList.remove("hidden");
+
+      hostSelection
+        .querySelectorAll(".lobby-mode")
+        .forEach(button => {
+
+          button.classList.toggle(
+            "selected",
+            button.dataset.mode === data.mode
+          );
+
+        });
+
+    }
+
+    else {
+
+      hostSelection.classList.add("hidden");
+      guestSelection.classList.remove("hidden");
+      cancelButton.classList.add("hidden");
+
+      const selectedGame =
+        document.getElementById("guestSelectedGame");
+
+      if (data.mode && games[data.mode]) {
+
+        selectedGame.innerHTML =
+          `<strong>${escapeHtml(games[data.mode].name)}</strong><br>` +
+          `Your partner chose this game. Waiting to start...`;
+
+      }
+
+      else {
+
+        selectedGame.textContent =
+          "Waiting for the host to choose a game...";
+
+      }
+
+    }
+
+
+    if (data.players?.guest) {
 
       document
         .getElementById("guestName")
@@ -1760,23 +1849,141 @@ const games = {
           </h3>
 
           <p>
-            Ready when you are.
+            ${data.mode
+              ? "Choose Start when you're ready."
+              : "Waiting for the host to choose a game."}
           </p>
 
         `;
 
 
-      if (isHost) {
+      if (isHost && data.mode) {
 
-        document
-          .getElementById("startButton")
-          .classList.remove("hidden");
+        startButton.classList.remove("hidden");
+
+      }
+
+      else {
+
+        startButton.classList.add("hidden");
 
       }
 
     }
 
+    else {
+
+      document
+        .getElementById("guestName")
+        .textContent =
+        "Waiting for partner...";
+
+      document
+        .getElementById("guestDot")
+        .classList.remove("online");
+
+      document
+        .getElementById("lobbyMessage")
+        .innerHTML = `
+
+          <div class="waiting-icon pulse">
+            💌
+          </div>
+
+          <h3>
+            Waiting for your partner
+          </h3>
+
+          <p>
+            Send them the room code.<br>
+            You can choose or change the game while you wait.
+          </p>
+
+        `;
+
+      startButton.classList.add("hidden");
+
+    }
+
   }
+
+
+  window.selectGameMode =
+    async function(mode) {
+
+      if (!isHost || !roomId || !games[mode]) {
+        return;
+      }
+
+      try {
+
+        await set(
+          ref(db, `rooms/${roomId}/mode`),
+          mode
+        );
+
+        currentMode = mode;
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+        showToast("Could not select this game.");
+
+      }
+
+    };
+
+
+  window.cancelRoom =
+    async function() {
+
+      if (!isHost || !roomId) {
+        return;
+      }
+
+      const yes =
+        confirm("Cancel this room and go back?");
+
+      if (!yes) return;
+
+      try {
+
+        if (unsubscribeRoom) {
+          unsubscribeRoom();
+          unsubscribeRoom = null;
+        }
+
+        await set(
+          ref(db, "rooms/" + roomId),
+          null
+        );
+
+      }
+
+      catch (error) {
+        console.error(error);
+      }
+
+      roomId = null;
+      roomData = null;
+      currentMode = null;
+      isHost = false;
+
+      showScreen("home");
+
+      document
+        .getElementById("gameSelection")
+        .classList.remove("hidden");
+
+      document
+        .getElementById("joinCard")
+        .classList.add("hidden");
+
+      showToast("Room cancelled.");
+
+    };
 
 
   /*
@@ -1790,6 +1997,20 @@ const games = {
 
       if (!isHost) {
 
+        return;
+
+      }
+
+      if (!roomData?.players?.guest) {
+
+        showToast("Wait for your partner to join first.");
+        return;
+
+      }
+
+      if (!roomData?.mode) {
+
+        showToast("Choose a game first.");
         return;
 
       }
@@ -2828,7 +3049,7 @@ const games = {
 
       const yes =
         confirm(
-          "Leave this anniversary game?"
+          "Leave this game?"
         );
 
 
