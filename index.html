@@ -946,6 +946,15 @@
         </button>
 
         <button
+          id="previousButton"
+          class="btn btn-outline"
+          style="width:100%;margin-top:10px"
+          onclick="previousQuestion()"
+        >
+          ← Previous question
+        </button>
+
+        <button
           id="skipButton"
           class="btn btn-outline"
           style="width:100%;margin-top:10px"
@@ -2133,6 +2142,10 @@ const games = {
         .getElementById("skipButton")
         .classList.add("hidden");
 
+      document
+        .getElementById("previousButton")
+        .classList.add("hidden");
+
       return;
 
     }
@@ -2145,6 +2158,13 @@ const games = {
     document
       .getElementById("skipButton")
       .classList.remove("hidden");
+
+    document
+      .getElementById("previousButton")
+      .classList.toggle(
+        "hidden",
+        currentQuestionIndex === 0
+      );
 
 
     if (
@@ -2902,17 +2922,53 @@ const games = {
   }
 
 
+  window.previousQuestion =
+    async function() {
+
+      if (
+        !roomId ||
+        !roomData ||
+        roomData.state?.status !== "playing" ||
+        currentQuestionIndex === 0
+      ) {
+        return;
+      }
+
+      const previousIndex =
+        currentQuestionIndex - 1;
+
+      try {
+
+        await update(
+          ref(
+            db,
+            `rooms/${roomId}/state`
+          ),
+          {
+            questionIndex: previousIndex,
+            status: "playing",
+            nextReady: null
+          }
+        );
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+        showToast("Could not go back.");
+
+      }
+
+    };
+
+
   window.skipQuestion =
     async function() {
 
       if (!roomId || !roomData || roomData.state?.status !== "playing") {
         return;
       }
-
-      const yes =
-        confirm("Skip this question for both of you?");
-
-      if (!yes) return;
 
       const nextIndex =
         currentQuestionIndex + 1;
