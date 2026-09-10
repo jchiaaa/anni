@@ -891,7 +891,7 @@
         class="exit"
         onclick="confirmLeave()"
       >
-        Leave
+        Back to games
       </button>
 
     </div>
@@ -3190,25 +3190,41 @@ const games = {
   */
 
   window.confirmLeave =
-    function() {
+    async function() {
 
-      const yes =
-        confirm(
-          "Leave this game?"
+      if (!roomId) {
+        showScreen("home");
+        return;
+      }
+
+      try {
+
+        await update(
+          ref(
+            db,
+            `rooms/${roomId}`
+          ),
+          {
+            mode: null,
+            answers: null,
+            finalAnswers: null,
+            "state/questionIndex": 0,
+            "state/status": "lobby",
+            "state/nextReady": null
+          }
         );
 
-
-      if (!yes) return;
-
-
-      if (unsubscribeRoom) {
-
-        unsubscribeRoom();
+        currentMode = null;
+        currentQuestionIndex = 0;
 
       }
 
+      catch (error) {
 
-      location.reload();
+        console.error(error);
+        showToast("Could not return to game selection.");
+
+      }
 
     };
 
