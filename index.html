@@ -1116,128 +1116,35 @@
    ============================================================
   */
 
-const games = {
+guess: {
 
-  guess: {
+  name: "💕 How Well Do You Know Me?",
 
-    name: "💕 You Guess Me",
+  questions: [
 
-    questions: [
+    "我最喜欢你身上的哪一个优点？",
 
-      "你觉得你的另一半最喜欢你哪一点？",
+    "如果只有我们两个人去旅行，我现在最想去哪里？",
 
-      "你觉得你的另一半认为你最大的优点是什么？",
+    "我们谈恋爱的时候，我最怀念哪一段回忆？",
 
-      "你觉得你的另一半最怀念你们谈恋爱时的哪一段回忆？",
+    "有宝宝以前的生活，我最怀念什么？",
 
-      "你觉得你的另一半最怀念有宝宝以前，两个人生活里的什么？",
+    "如果突然多出一整天，只有我们两个人，我最想怎么过？",
 
-      "你觉得你的另一半认为你们这段婚姻最好的地方是什么？",
+    "我觉得我们两个人最合拍的地方是什么？",
 
-      "如果下一次只有你们两个人去旅行，你觉得你的另一半最想去哪里？",
+    "现在的我，最希望你可以多为我做什么？",
 
-      "你觉得你的另一半最希望你们以后多做什么？",
+    "如果可以重新体验一个我们一起经历过的时刻，我会选哪一个？",
 
-      "你觉得你的另一半最为你们两个人感到骄傲的是什么？",
+    "我心目中最理想的约会是什么？",
 
-      "你觉得你的另一半希望10年后的你们过着怎样的生活？",
+    "如果人生重新来一次，我还会不会选择你？为什么？"
 
-      "你觉得如果可以重新选择一次，你的另一半还会选择你吗？为什么？"
-    ]
+  ]
 
-  },
-
-
-  couple: {
-
-    name: "😂 Couple Compatibility",
-
-    questions: [
-
-      "吵架之后，谁比较可能先道歉？",
-
-      "谁比较容易一时冲动就花钱？",
-
-      "谁比较容易嘴上说“我没事”，但其实明明就有事？",
-
-      "一旦认定一件事，谁比较难被说服？",
-
-      "谁比较需要自己的独处时间？",
-
-      "谁比较可能突然提议：我们订个旅行吧？",
-
-      "如果要一个人独自带宝宝24小时，谁会撑得比较好？😂",
-
-      "到了50岁，谁比较可能还是一直想出去旅行？",
-
-      "谁比较可能哪一天突然辞职，跑去做完全不一样的事情？",
-
-      "谁在感情上比较依赖对方？"
-    ]
-
-  },
-
-
-  year: {
-
-    name: "🥹 This Year, Us",
-
-    questions: [
-
-      "这一年里，你最感谢另一半为你做的哪一件事？",
-
-      "这一年里，有哪个时刻你觉得另一半其实过得很辛苦？",
-
-      "这一年里，有哪个瞬间你觉得另一半特别可爱？",
-
-      "这一年里，有哪个瞬间让你突然觉得：我们真的已经是一个家了？",
-
-      "这一年里，你觉得自己作为另一半，做得最好的一件事是什么？",
-
-      "这一年里，有什么是你希望自己可以做得更好的？",
-
-      "成为爸爸妈妈以前，你最怀念我们两个人生活里的什么？",
-
-      "现在的我们，有什么是你最喜欢的？",
-
-      "接下来这一年，你希望我们两个人可以多做一点什么？",
-
-      "不管以后生活怎么变，有什么是你最不希望我们失去的？"
-    ]
-
-  },
-
-
-  future: {
-
-    name: "🔮 If We Could Start Again",
-
-    questions: [
-
-      "如果当初你已经知道我们最后会走到今天，你还会做一样的选择吗？",
-
-      "如果我们是今天才第一次认识，你还会想跟我约会吗？",
-
-      "你有没有希望过，我们可以更早一点认识？",
-
-      "结婚以前，有没有什么事情是你希望我们当时可以做得不一样的？",
-
-      "如果可以重新过一次我们的婚礼，你会想改变什么？",
-
-      "如果完全不用考虑钱和工作，你最想和我住在哪里？",
-
-      "你希望我们老了以后，会过着怎样的生活？",
-
-      "你觉得70岁的我会是什么样子？",
-
-      "你觉得70岁的我们，还会不会继续约会？",
-
-      "如果人生真的可以重新来一次，你还会选择我吗？为什么？"
-    ]
-
-  }
-
-};
+},
 
 
   /*
@@ -2035,38 +1942,38 @@ const games = {
 
     else if (currentMode === "guess") {
 
-      container.innerHTML = `
+  container.innerHTML = `
 
-        <div class="field">
+    <div class="field">
 
-          <label>
-            Your guess — what will your partner say?
-          </label>
+      <label>
+        What do you think your partner will guess?
+      </label>
 
-          <textarea
-            id="guessInput"
-            placeholder="I think they'll say..."
-          ></textarea>
+      <textarea
+        id="guessInput"
+        placeholder="I think they'll guess..."
+      ></textarea>
 
-        </div>
+    </div>
 
 
-        <div class="field">
+    <div class="field">
 
-          <label>
-            Your actual answer
-          </label>
+      <label>
+        Your real answer
+      </label>
 
-          <textarea
-            id="actualInput"
-            placeholder="My real answer is..."
-          ></textarea>
+      <textarea
+        id="actualInput"
+        placeholder="My real answer is..."
+      ></textarea>
 
-        </div>
+    </div>
 
-      `;
+  `;
 
-    }
+}
 
 
     else {
@@ -2461,52 +2368,52 @@ const games = {
 
     if (currentMode === "guess") {
 
-      html += `
+  html += `
 
-        <div class="answer-card mine">
+    <div class="answer-card mine">
 
-          <div class="answer-name">
-            ${escapeHtml(myName)}
-          </div>
+      <div class="answer-name">
+        ${escapeHtml(myName)}
+      </div>
 
-          <div class="answer-text">
+      <div class="answer-text">
 
-            <strong>My guess:</strong><br>
-            ${escapeHtml(mine.guess)}
+        <strong>I thought you'd guess:</strong><br>
+        ${escapeHtml(mine.guess)}
 
-            <br><br>
+        <br><br>
 
-            <strong>My actual answer:</strong><br>
-            ${escapeHtml(mine.actual)}
+        <strong>My real answer:</strong><br>
+        ${escapeHtml(mine.actual)}
 
-          </div>
+      </div>
 
-        </div>
+    </div>
 
 
-        <div class="answer-card">
+    <div class="answer-card">
 
-          <div class="answer-name">
-            ${escapeHtml(partnerName)}
-          </div>
+      <div class="answer-name">
+        ${escapeHtml(partnerName)}
+      </div>
 
-          <div class="answer-text">
+      <div class="answer-text">
 
-            <strong>Their guess:</strong><br>
-            ${escapeHtml(partner.guess)}
+        <strong>They thought you'd guess:</strong><br>
+        ${escapeHtml(partner.guess)}
 
-            <br><br>
+        <br><br>
 
-            <strong>Their actual answer:</strong><br>
-            ${escapeHtml(partner.actual)}
+        <strong>Their real answer:</strong><br>
+        ${escapeHtml(partner.actual)}
 
-          </div>
+      </div>
 
-        </div>
+    </div>
 
-      `;
+  `;
 
-    }
+}
 
 
     else if (currentMode === "couple") {
