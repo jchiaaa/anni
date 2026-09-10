@@ -1,0 +1,778 @@
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我们的结婚纪念日晚餐</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+        "Helvetica Neue", Arial, sans-serif;
+      background: #f8f4ef;
+      color: #3d3530;
+      min-height: 100vh;
+    }
+
+    .app {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 24px 18px 50px;
+    }
+
+    /* ---------- Header ---------- */
+
+    .hero {
+      text-align: center;
+      padding: 36px 10px 28px;
+    }
+
+    .heart {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: 500;
+      margin: 0 0 10px;
+      color: #4b3b34;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #8a7970;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ---------- Cards ---------- */
+
+    .card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid #eadfd6;
+      border-radius: 22px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 30px rgba(80, 60, 45, 0.05);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .card-description {
+      color: #8a7970;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    /* ---------- Menu ---------- */
+
+    .mode {
+      width: 100%;
+      border: 1px solid #e5d8ce;
+      background: #fffaf6;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 12px;
+      text-align: left;
+      cursor: pointer;
+      transition: all .2s ease;
+      color: #3d3530;
+    }
+
+    .mode:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(80,60,45,.08);
+    }
+
+    .mode-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .mode-text {
+      font-size: 13px;
+      color: #8a7970;
+      line-height: 1.5;
+    }
+
+    /* ---------- Game ---------- */
+
+    .hidden {
+      display: none !important;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #907f76;
+    }
+
+    .progress {
+      width: 100%;
+      height: 5px;
+      background: #eadfd7;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #b99886;
+      transition: width .3s ease;
+    }
+
+    .question-number {
+      font-size: 13px;
+      color: #a28e82;
+      margin-bottom: 8px;
+    }
+
+    .question {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      line-height: 1.45;
+      margin-bottom: 24px;
+      color: #443831;
+    }
+
+    .answer-section {
+      margin-bottom: 18px;
+    }
+
+    .answer-label {
+      display: block;
+      font-size: 13px;
+      color: #806f66;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      border: 1px solid #dfd1c7;
+      background: #fffdfb;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #3d3530;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #b99886;
+    }
+
+    .button {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .primary {
+      background: #59483f;
+      color: white;
+      width: 100%;
+    }
+
+    .secondary {
+      background: #eee4dd;
+      color: #5a4940;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .button-row .button {
+      flex: 1;
+    }
+
+    /* ---------- Guess Mode ---------- */
+
+    .guess-box {
+      background: #f8f1eb;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 14px;
+    }
+
+    .guess-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #79665c;
+    }
+
+    .reveal {
+      margin-top: 14px;
+      padding: 14px;
+      background: white;
+      border-radius: 12px;
+      border: 1px dashed #d7c4b8;
+    }
+
+    .reveal strong {
+      display: block;
+      font-size: 12px;
+      color: #9a8478;
+      margin-bottom: 5px;
+    }
+
+    /* ---------- Choice ---------- */
+
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .choice {
+      border: 1px solid #ded0c6;
+      background: #fffdfb;
+      border-radius: 14px;
+      padding: 15px 10px;
+      cursor: pointer;
+      font-family: inherit;
+      color: #51433c;
+      font-size: 14px;
+    }
+
+    .choice.selected {
+      border-color: #8f7161;
+      background: #eee3db;
+      font-weight: 600;
+    }
+
+    /* ---------- Final ---------- */
+
+    .final {
+      text-align: center;
+    }
+
+    .final .big-heart {
+      font-size: 54px;
+      margin: 12px 0 15px;
+    }
+
+    .final h2 {
+      font-size: 27px;
+    }
+
+    .final p {
+      color: #806f66;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .memory-note {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    /* ---------- Footer ---------- */
+
+    footer {
+      text-align: center;
+      color: #aa988e;
+      font-size: 12px;
+      padding-top: 24px;
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding-top: 25px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .question {
+        font-size: 22px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- HOME -->
+  <section id="home">
+
+    <div class="hero">
+      <div class="heart">♡</div>
+      <h1>我们的结婚纪念日晚餐</h1>
+      <p>
+        今晚不聊工作，不刷手机。<br>
+        花一点时间，重新认识彼此。
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>今晚想怎么玩？</h2>
+      <div class="card-description">
+        选一个游戏开始。每一题都需要双方回答。
+      </div>
+
+      <button class="mode" onclick="startGame('guess')">
+        <div class="mode-title">① 你猜我答</div>
+        <div class="mode-text">
+          先猜对方会怎么回答，再公布真实答案。看看你们到底有多了解彼此。
+        </div>
+      </button>
+
+      <button class="mode" onclick="startGame('couple')">
+        <div class="mode-title">② 夫妻默契测试</div>
+        <div class="mode-text">
+          不讨论，直接选答案。适合先来一点轻松搞笑的。
+        </div>
+      </button>
+
+      <button class="mode" onclick="startGame('year')">
+        <div class="mode-title">③ 这一年的我们</div>
+        <div class="mode-text">
+          回顾这一年，特别适合今年——从两个人变成三个人的一年。
+        </div>
+      </button>
+
+      <button class="mode" onclick="startGame('future')">
+        <div class="mode-title">④ 如果人生重来一次</div>
+        <div class="mode-text">
+          比较深的一组问题。建议留到甜点和最后一杯酒。
+        </div>
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- GAME -->
+  <section id="game" class="hidden">
+
+    <div class="topbar">
+      <button class="button secondary" onclick="goHome()">← 返回</button>
+      <span id="counter"></span>
+    </div>
+
+    <div class="progress">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+    <div class="card">
+
+      <div id="questionNumber" class="question-number"></div>
+      <div id="question" class="question"></div>
+
+      <!-- NORMAL ANSWERS -->
+      <div id="normalAnswers">
+
+        <div class="answer-section">
+          <label class="answer-label">♡ 你的回答</label>
+          <textarea id="answer1" placeholder="写下你的答案……"></textarea>
+        </div>
+
+        <div class="answer-section">
+          <label class="answer-label">♡ 另一半的回答</label>
+          <textarea id="answer2" placeholder="写下另一半的答案……"></textarea>
+        </div>
+
+      </div>
+
+
+      <!-- GUESS MODE -->
+      <div id="guessAnswers" class="hidden">
+
+        <div class="guess-box">
+          <div class="guess-title">先猜：你觉得另一半会怎么回答？</div>
+          <textarea id="guess" placeholder="猜猜看……"></textarea>
+        </div>
+
+        <div class="guess-box">
+          <div class="guess-title">然后：另一半的真实答案</div>
+          <textarea id="realAnswer" placeholder="现在把真实答案写下来……"></textarea>
+        </div>
+
+        <button id="revealBtn" class="button secondary" onclick="revealGuess()">
+          👀 揭晓
+        </button>
+
+        <div id="revealBox" class="reveal hidden">
+          <strong>你猜得准吗？</strong>
+          <span id="revealText"></span>
+        </div>
+
+      </div>
+
+
+      <!-- COUPLE MODE -->
+      <div id="coupleAnswers" class="hidden">
+
+        <div class="answer-section">
+          <label class="answer-label">你认为……</label>
+
+          <div class="choices">
+            <button class="choice" onclick="selectChoice(this)">我</button>
+            <button class="choice" onclick="selectChoice(this)">另一半</button>
+          </div>
+        </div>
+
+        <div class="answer-section">
+          <label class="answer-label">另一半认为……</label>
+
+          <div class="choices">
+            <button class="choice" onclick="selectChoice(this)">我</button>
+            <button class="choice" onclick="selectChoice(this)">另一半</button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="button-row">
+        <button class="button secondary" onclick="previousQuestion()">
+          上一题
+        </button>
+
+        <button class="button primary" onclick="nextQuestion()">
+          下一题 →
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FINAL -->
+  <section id="final" class="hidden">
+
+    <div class="card final">
+
+      <div class="big-heart">♡</div>
+
+      <h2>谢谢你，还是选择了我。</h2>
+
+      <p>
+        今天是你们一起走过的又一年。<br>
+        不需要每一个答案都一样，<br>
+        能坐在一起认真听对方说完，就已经很好。
+      </p>
+
+      <div class="memory-note">
+
+        <label class="answer-label">
+          写给明年的我们
+        </label>
+
+        <textarea
+          id="nextYear"
+          placeholder="明年的今天，我希望我们……"
+        ></textarea>
+
+      </div>
+
+      <br>
+
+      <button class="button primary" onclick="goHome()">
+        再玩一次
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    Made for two people who chose each other.
+  </footer>
+
+</div>
+
+
+<script>
+
+  const games = {
+
+    guess: {
+      title: "你猜我答",
+      questions: [
+        "你觉得另一半最喜欢你身上的哪个特质？",
+        "你觉得另一半认为你们结婚以来最幸福的一年是哪一年？",
+        "你觉得另一半最希望你改掉的一个小习惯是什么？",
+        "你觉得另一半最想和你一起去哪里度一个只有两个人的假？",
+        "你觉得另一半认为你们两个谁比较会经营婚姻？为什么？",
+        "你觉得另一半最害怕你们以后变成什么样的夫妻？",
+        "你觉得另一半最想和你一起完成的一件事是什么？",
+        "你觉得另一半现在还会不会重新选择你？",
+        "如果今天第一次认识你，你觉得另一半还会主动追你吗？",
+        "你觉得另一半现在最需要你理解的一件事是什么？"
+      ]
+    },
+
+    couple: {
+      title: "夫妻默契测试",
+      questions: [
+        "谁比较容易先道歉？",
+        "谁比较爱花钱？",
+        "谁比较容易心软？",
+        "谁比较难哄？",
+        "谁比较需要独处？",
+        "谁比较容易因为小事不开心？",
+        "谁比较适合一个人带宝宝一天？😂",
+        "谁比较可能50岁还想去旅行？",
+        "谁比较可能突然辞职去做完全不同的事情？",
+        "谁比较离不开对方？"
+      ]
+    },
+
+    year: {
+      title: "这一年的我们",
+      questions: [
+        "今年我最感谢你的一件事是什么？",
+        "今年什么时候，我觉得你特别辛苦？",
+        "今年什么时候，我觉得你特别可爱？",
+        "今年有没有一个瞬间，让我觉得“我们真的成为一家人了”？",
+        "今年我觉得自己作为另一半做得最好的一件事是什么？",
+        "今年我觉得自己作为另一半做得不够好的是什么？",
+        "有宝宝以后，我最想念我们以前的什么？",
+        "有宝宝以后，我最喜欢现在的我们什么？",
+        "明年我希望我们两个人多做的一件事是什么？",
+        "明年我希望我们永远不要失去的一件事是什么？"
+      ]
+    },
+
+    future: {
+      title: "如果人生重来一次",
+      questions: [
+        "如果你知道今天我们会走到现在，你还会做出当年同样的选择吗？",
+        "如果重新认识一次，你还会选择和我谈恋爱吗？",
+        "你会不会希望我们早点认识？",
+        "有没有什么事情，你希望我们当年做得不一样？",
+        "如果可以重新经历一次我们的婚礼，你会改变什么？",
+        "如果没有任何现实限制，你希望我们未来一起在哪里生活？",
+        "如果我们老了，你希望我们的生活是什么样的？",
+        "你觉得70岁的我会是什么样的人？",
+        "你觉得70岁的我们还会不会约会？",
+        "如果人生真的可以重来，你还是会选我吗？为什么？"
+      ]
+    }
+
+  };
+
+
+  let currentGame = null;
+  let currentQuestion = 0;
+
+
+  function startGame(type) {
+
+    currentGame = games[type];
+    currentQuestion = 0;
+
+    document.getElementById("home").classList.add("hidden");
+    document.getElementById("final").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
+
+    setupMode(type);
+    renderQuestion();
+
+  }
+
+
+  function setupMode(type) {
+
+    document.getElementById("normalAnswers").classList.add("hidden");
+    document.getElementById("guessAnswers").classList.add("hidden");
+    document.getElementById("coupleAnswers").classList.add("hidden");
+
+    if (type === "guess") {
+      document.getElementById("guessAnswers").classList.remove("hidden");
+    }
+
+    else if (type === "couple") {
+      document.getElementById("coupleAnswers").classList.remove("hidden");
+    }
+
+    else {
+      document.getElementById("normalAnswers").classList.remove("hidden");
+    }
+
+  }
+
+
+  function renderQuestion() {
+
+    const q = currentGame.questions[currentQuestion];
+
+    document.getElementById("questionNumber").textContent =
+      currentGame.title;
+
+    document.getElementById("question").textContent = q;
+
+    document.getElementById("counter").textContent =
+      `${currentQuestion + 1} / ${currentGame.questions.length}`;
+
+    const progress =
+      ((currentQuestion + 1) / currentGame.questions.length) * 100;
+
+    document.getElementById("progressFill").style.width =
+      progress + "%";
+
+    clearInputs();
+
+  }
+
+
+  function clearInputs() {
+
+    const ids = [
+      "answer1",
+      "answer2",
+      "guess",
+      "realAnswer"
+    ];
+
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    document.getElementById("revealBox")
+      .classList.add("hidden");
+
+    document.querySelectorAll(".choice")
+      .forEach(btn => btn.classList.remove("selected"));
+
+  }
+
+
+  function revealGuess() {
+
+    const guess =
+      document.getElementById("guess").value.trim();
+
+    const real =
+      document.getElementById("realAnswer").value.trim();
+
+    if (!guess || !real) {
+      alert("先把“猜测”和“真实答案”都写下来 ❤️");
+      return;
+    }
+
+    document.getElementById("revealText").innerHTML =
+      `<b>你猜：</b>${escapeHtml(guess)}<br><br>
+       <b>真实答案：</b>${escapeHtml(real)}`;
+
+    document.getElementById("revealBox")
+      .classList.remove("hidden");
+
+  }
+
+
+  function selectChoice(button) {
+
+    const parent = button.parentElement;
+
+    parent.querySelectorAll(".choice")
+      .forEach(btn => btn.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+  }
+
+
+  function nextQuestion() {
+
+    if (currentQuestion <
+        currentGame.questions.length - 1) {
+
+      currentQuestion++;
+      renderQuestion();
+
+    } else {
+
+      document.getElementById("game")
+        .classList.add("hidden");
+
+      document.getElementById("final")
+        .classList.remove("hidden");
+
+    }
+
+  }
+
+
+  function previousQuestion() {
+
+    if (currentQuestion > 0) {
+
+      currentQuestion--;
+      renderQuestion();
+
+    }
+
+  }
+
+
+  function goHome() {
+
+    document.getElementById("game")
+      .classList.add("hidden");
+
+    document.getElementById("final")
+      .classList.add("hidden");
+
+    document.getElementById("home")
+      .classList.remove("hidden");
+
+  }
+
+
+  function escapeHtml(text) {
+
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+
+  }
+
+</script>
+
+</body>
+</html>
+```
