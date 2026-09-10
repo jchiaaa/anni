@@ -945,6 +945,15 @@
           Lock in my answer
         </button>
 
+        <button
+          id="skipButton"
+          class="btn btn-outline"
+          style="width:100%;margin-top:10px"
+          onclick="skipQuestion()"
+        >
+          Skip this question →
+        </button>
+
       </div>
 
 
@@ -2120,6 +2129,10 @@ const games = {
         .getElementById("submitButton")
         .classList.add("hidden");
 
+      document
+        .getElementById("skipButton")
+        .classList.add("hidden");
+
       return;
 
     }
@@ -2127,6 +2140,10 @@ const games = {
 
     document
       .getElementById("submitButton")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("skipButton")
       .classList.remove("hidden");
 
 
@@ -2883,6 +2900,78 @@ const games = {
     }
 
   }
+
+
+  window.skipQuestion =
+    async function() {
+
+      if (!roomId || !roomData || roomData.state?.status !== "playing") {
+        return;
+      }
+
+      const yes =
+        confirm("Skip this question for both of you?");
+
+      if (!yes) return;
+
+      const nextIndex =
+        currentQuestionIndex + 1;
+
+      try {
+
+        // Remove any answer already submitted for the skipped question.
+        await set(
+          ref(
+            db,
+            `rooms/${roomId}/answers/q${currentQuestionIndex}`
+          ),
+          null
+        );
+
+        if (
+          nextIndex >=
+          games[currentMode].questions.length
+        ) {
+
+          await update(
+            ref(
+              db,
+              `rooms/${roomId}/state`
+            ),
+            {
+              status: "finished",
+              nextReady: null
+            }
+          );
+
+        }
+
+        else {
+
+          await update(
+            ref(
+              db,
+              `rooms/${roomId}/state`
+            ),
+            {
+              questionIndex: nextIndex,
+              status: "playing",
+              nextReady: null
+            }
+          );
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+        showToast("Could not skip this question.");
+
+      }
+
+    };
 
 
   /*
